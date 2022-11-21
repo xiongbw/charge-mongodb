@@ -6,3 +6,8 @@
 * [服务下载地址](https://www.mongodb.com/try/download/community)
 * [数据库工具下载地址](https://www.mongodb.com/try/download/database-tools)
 
+## 数据准备
+解压 `dump.7z`，使用数据库工具的 `mongorestore` 备份工具，导入 10,0000 条订单 `db_charge.order` 数据。
+```shell
+mongorestore -h 127.0.0.1:27017 dump
+```
