@@ -1,7 +1,7 @@
 package com.bowy.mongodb.simple.service.impl;
 
 import com.bowy.mongodb.simple.model.Order;
-import com.bowy.mongodb.simple.service.DocumentService;
+import com.bowy.mongodb.simple.service.OrderService;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * Implement by {@link MongoTemplate}
+ *
  * @author xiongbw
  * @date 2022/11/19
  */
 @Service
-public class DocumentServiceImpl implements DocumentService {
+public class OrderTemplateServiceImpl implements OrderService {
 
     @Autowired
     private MongoTemplate mongoTemplate;
@@ -54,7 +56,7 @@ public class DocumentServiceImpl implements DocumentService {
         Query query = new Query(criteria);
 
         Update update = new Update();
-        update.set(Order.Fields.name, "updateFirst");
+        update.set(Order.Fields.name, "updateFirst by mongoTemplate");
         // 只更新满足条件的第一条记录
         UpdateResult updateResult = mongoTemplate.updateFirst(query, update, Order.class);
         return updateResult.getModifiedCount();

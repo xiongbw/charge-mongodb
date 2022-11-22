@@ -1,10 +1,10 @@
 package com.bowy.mongodb.simple.controller;
 
 import com.bowy.mongodb.simple.model.Order;
-import com.bowy.mongodb.simple.service.DocumentService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bowy.mongodb.simple.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import java.util.Map;
 
 /**
@@ -15,42 +15,52 @@ import java.util.Map;
 @RequestMapping("mongo/document")
 public class DocumentController {
 
-    @Autowired
-    private DocumentService documentService;
+    @Resource(name = "orderTemplateServiceImpl")
+    private OrderService orderTemplateService;
+
+    @Resource(name = "orderRepositoryServiceImpl")
+    private OrderService orderRepositoryService;
 
     @GetMapping("count")
     public Long countDocRecords() {
-        return documentService.count();
+        return orderTemplateService.count();
+//        return orderRepositoryService.count();
     }
 
     @PostMapping("insert")
     public Order insert(@RequestBody Order order) {
-        return documentService.insert(order);
+        return orderTemplateService.insert(order);
+//        return orderRepositoryService.insert(order);
     }
 
     @GetMapping("get/{id}")
     public Order get(@PathVariable String id) {
-        return documentService.getById(id);
+        return orderTemplateService.getById(id);
+//        return orderRepositoryService.getById(id);
     }
 
     @PostMapping("updateFirst")
     public Long updateFirst(@RequestBody Map<String, Object> queryMap) {
-        return documentService.updateFirst(queryMap);
+        return orderTemplateService.updateFirst(queryMap);
+//        return orderRepositoryService.updateFirst(queryMap);
     }
 
     @PostMapping("updateMulti")
     public Long updateMulti(@RequestBody Map<String, Object> queryMap) {
-        return documentService.updateMulti(queryMap);
+        return orderTemplateService.updateMulti(queryMap);
+//        return orderRepositoryService.updateMulti(queryMap);
     }
 
     @PostMapping("upsert")
     public Long upsert(@RequestBody Map<String, Object> queryMap) {
-        return documentService.upsert(queryMap);
+        return orderTemplateService.upsert(queryMap);
+//        return orderRepositoryService.upsert(queryMap);
     }
 
     @DeleteMapping("delete")
     public Long delete(@RequestBody Map<String, Object> queryMap) {
-        return documentService.delete(queryMap);
+        return orderTemplateService.delete(queryMap);
+//        return orderRepositoryService.delete(queryMap);
     }
 
 }

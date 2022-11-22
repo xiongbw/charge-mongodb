@@ -9,7 +9,7 @@ import java.util.Map;
  * @date 2022/11/19
  * @see <a href="https://www.baeldung.com/spring-data-mongodb-tutorial">Introduction to Spring Data MongoDB</a>
  */
-public interface DocumentService {
+public interface OrderService {
 
     /**
      * Count documents
