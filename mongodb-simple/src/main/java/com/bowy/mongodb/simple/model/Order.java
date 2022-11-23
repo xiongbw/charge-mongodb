@@ -3,7 +3,10 @@ package com.bowy.mongodb.simple.model;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.experimental.FieldNameConstants;
+import org.springframework.data.convert.CustomConversions;
+import org.springframework.data.mongodb.core.convert.MappingMongoConverter;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -16,6 +19,7 @@ import java.util.List;
  *
  * @author xiongbw
  * @date 2022/11/19
+ * @implSpec Fields can without {@link Field#targetType()} when {@link MappingMongoConverter#setCustomConversions(CustomConversions)}
  */
 @Data
 @Document("order")
