@@ -5,7 +5,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -16,7 +15,7 @@ import java.util.List;
  * @author xiongbw
  * @date 2022/11/21
  */
-public interface OrderRepository extends MongoRepository<Order, String>, CrudRepository<Order, String> {
+public interface OrderRepository extends MongoRepository<Order, String> {
 
     /**
      * Find orders by name and state
