@@ -13,7 +13,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import java.util.List;
 
 @SpringBootTest
-class MongodbSimpleApplicationTests {
+class MongoTemplateTests {
 
     @Autowired
     private MongoTemplate mongoTemplate;
