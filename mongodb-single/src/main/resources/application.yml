@@ -1,0 +1,13 @@
+server:
+  port: 9999
+
+spring:
+  data:
+    mongodb:
+      # 配置参考文档：https://www.mongodb.com/docs/v4.4/reference/connection-string/
+      uri: mongodb://localhost/db_charge?replicaSet=singleRepl
+
+logging:
+  level:
+    # 输出查询语句
+    org.springframework.data.mongodb.core: debug

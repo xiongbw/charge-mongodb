@@ -23,7 +23,7 @@
     </properties>
 
     <modules>
-        <module>mongodb-simple</module>
+        <module>mongodb-single</module>
     </modules>
 
     <dependencies>
