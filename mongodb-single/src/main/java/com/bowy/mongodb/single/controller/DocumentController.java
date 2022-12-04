@@ -39,6 +39,13 @@ public class DocumentController {
 //        return orderRepositoryService.insertThrowsException(order);
     }
 
+    @PostMapping("insert/transactionWithMysql")
+    public String insertTransactionWithMysql(@RequestBody Order order) {
+        orderTemplateService.insertThrowsExceptionWithMysql(order);
+//        orderRepositoryService.insertThrowsExceptionWithMysql(order);
+        return "ok";
+    }
+
     @GetMapping("get/{id}")
     public Order get(@PathVariable String id) {
         return orderTemplateService.getById(id);

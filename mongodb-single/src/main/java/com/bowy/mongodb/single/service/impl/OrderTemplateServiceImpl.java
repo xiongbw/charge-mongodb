@@ -1,6 +1,8 @@
 package com.bowy.mongodb.single.service.impl;
 
+import com.bowy.mongodb.single.dao.ProductRepository;
 import com.bowy.mongodb.single.model.Order;
+import com.bowy.mongodb.single.model.Product;
 import com.bowy.mongodb.single.service.OrderService;
 import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
@@ -29,6 +31,9 @@ public class OrderTemplateServiceImpl implements OrderService {
     @Autowired
     private MongoTemplate mongoTemplate;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public Long count() {
         return mongoTemplate.count(new Query(), Order.class);
@@ -41,11 +46,23 @@ public class OrderTemplateServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(transactionManager = "mongoTm", rollbackFor = Exception.class)
     public Order insertThrowsException(Order order) {
         Order saved = mongoTemplate.save(order);
         int a = 1 / 0;
         return saved;
+    }
+
+    @Override
+    @Transactional(transactionManager = "chainedTransactionManager", rollbackFor = Exception.class)
+    public void insertThrowsExceptionWithMysql(Order order) {
+        mongoTemplate.save(order);
+
+        Product entity = new Product();
+        entity.setName("test tx");
+        productRepository.save(entity);
+
+        int a = 1 / 0;
     }
 
     @Override

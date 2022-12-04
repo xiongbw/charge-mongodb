@@ -7,7 +7,6 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.data.convert.WritingConverter;
 import org.springframework.data.mongodb.MongoDbFactory;
-import org.springframework.data.mongodb.MongoTransactionManager;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.convert.DefaultDbRefResolver;
 import org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper;
@@ -32,19 +31,6 @@ import java.util.Arrays;
  */
 @Configuration
 public class MongoConfig {
-
-    /**
-     * MongoDB 事务管理
-     *
-     * @param dbFactory {@link MongoDbFactory}
-     * @return {@link MongoTransactionManager}
-     * @implNote 因 MongoDB 版本（4.4）原因，需要根据 README.md 搭建一个单节点的复制集，
-     * 否则使用事务会报错：{@linkplain com.mongodb.MongoClientException Sessions are not supported by the MongoDB cluster to which this client is connected}
-     */
-    @Bean
-    public MongoTransactionManager transactionManager(MongoDbFactory dbFactory) {
-        return new MongoTransactionManager(dbFactory);
-    }
 
     @Bean
     public MongoTemplate mongoTemplate(MongoDbFactory mongoDbFactory, MongoMappingContext context) {

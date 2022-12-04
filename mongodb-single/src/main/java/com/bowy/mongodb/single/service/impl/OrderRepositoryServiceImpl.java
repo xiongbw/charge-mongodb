@@ -1,7 +1,9 @@
 package com.bowy.mongodb.single.service.impl;
 
 import com.bowy.mongodb.single.dao.OrderRepository;
+import com.bowy.mongodb.single.dao.ProductRepository;
 import com.bowy.mongodb.single.model.Order;
+import com.bowy.mongodb.single.model.Product;
 import com.bowy.mongodb.single.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class OrderRepositoryServiceImpl implements OrderService {
     @Autowired
     private OrderRepository orderRepository;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Override
     public Long count() {
         return orderRepository.count();
@@ -38,11 +43,23 @@ public class OrderRepositoryServiceImpl implements OrderService {
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(transactionManager = "mongoTm", rollbackFor = Exception.class)
     public Order insertThrowsException(Order order) {
         Order insert = orderRepository.insert(order);
         int a = 1 / 0;
         return insert;
+    }
+
+    @Override
+    @Transactional(transactionManager = "chainedTransactionManager", rollbackFor = Exception.class)
+    public void insertThrowsExceptionWithMysql(Order order) {
+        orderRepository.insert(order);
+
+        Product entity = new Product();
+        entity.setName("test tx");
+        productRepository.save(entity);
+
+        int a = 1 / 0;
     }
 
     @Override

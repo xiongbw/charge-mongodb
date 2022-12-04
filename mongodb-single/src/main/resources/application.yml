@@ -6,6 +6,15 @@ spring:
     mongodb:
       # 配置参考文档：https://www.mongodb.com/docs/v4.4/reference/connection-string/
       uri: mongodb://localhost/db_charge?replicaSet=singleRepl
+  datasource:
+    url: jdbc:mysql://localhost:3306/bowy_dev
+    username: root
+    password: guess
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 logging:
   level:

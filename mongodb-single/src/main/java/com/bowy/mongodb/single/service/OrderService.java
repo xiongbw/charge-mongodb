@@ -35,6 +35,13 @@ public interface OrderService {
     Order insertThrowsException(Order order);
 
     /**
+     * Insert MongoDB and MySQL data in same transaction
+     *
+     * @param order document data
+     */
+    void insertThrowsExceptionWithMysql(Order order);
+
+    /**
      * Get order by id
      *
      * @param id {@link Order#getId()}
