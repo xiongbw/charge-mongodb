@@ -1,9 +1,9 @@
 # mongodb-single
-> `MongoDB` 3.0 版本开始引入 `WiredTiger` 存储引擎之后开始支持事务
+> `MongoDB` 3.0 版本开始引入 `WiredTiger` 存储引擎之后开始支持事务；
 >
-> `MongoDB` 3.6 之前的版本只能支持单文档的事务
+> `MongoDB` 3.6 之前的版本只能支持单文档的事务；
 >
-> `MongoDB` 4.0 版本开始支持复制集部署模式下的事务
+> `MongoDB` 4.0 版本开始支持复制集部署模式下的事务；
 >
 > `MongoDB` 4.2 版本开始支持分片集群中的事务。
 
@@ -11,7 +11,8 @@
 
 主要是使用 `Spring Boot` 与 **单实例** `MongoDB(4.4.16)` 相结合的一些实例。
 1. `MongoTemplate` 和 `MongoRepository` 的使用；
-2. 与 `MongoDB` 事务结合。
+2. 与 `MongoDB` 事务结合；
+3. `MongoDB` 与 `MySQL` 结合于同一事务管理。
 
 ## 安装
 1. [官方网站](https://www.mongodb.com/try/download/community)
