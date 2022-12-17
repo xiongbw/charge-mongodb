@@ -5,11 +5,13 @@ spring:
   data:
     mongodb:
       # 配置参考文档：https://www.mongodb.com/docs/v4.4/reference/connection-string/
+      # http://www.typedefine.cn/2020/12/07/%E5%A6%82%E4%BD%95%E5%9C%A8Spring-Cloud%E6%9C%8D%E5%8A%A1%E4%B8%AD%E9%85%8D%E7%BD%AEMongoDB/
+      # https://blog.csdn.net/qq_42543063/article/details/111636110
       uri: mongodb://localhost/db_charge?replicaSet=singleRepl
   datasource:
     url: jdbc:mysql://localhost:3306/bowy_dev
     username: root
-    password: guess
+    password: Xiongbw@946
     driver-class-name: com.mysql.jdbc.Driver
   jpa:
     hibernate:

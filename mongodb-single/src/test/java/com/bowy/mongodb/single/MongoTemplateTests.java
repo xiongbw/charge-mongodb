@@ -49,7 +49,7 @@ class MongoTemplateTests {
      *     <li>{@link Criteria#lte(Object)} $lte 存在并小于等于 less than equals to</li>
      *
      *     <li>{@link Criteria#in(Object...)} $in 存在并包含</li>
-     *     <li>{@link Criteria#nin(Object...)} $nin 存在并不包含 not in</li>
+     *     <li>{@link Criteria#nin(Object...)} $nin 不存在或存在但不包含 not in</li>
      * </ul>
      */
     @Test
