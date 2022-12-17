@@ -17,6 +17,9 @@ import javax.sql.DataSource;
  *
  * @author xiongbw
  * @date 2022/12/3
+ * @see <a href="https://www.mongodb.com/docs/v4.4/core/transactions/">Transactions — MongoDB Manual</a>
+ * @see <a href="https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mongo.transactions/">MongoDB Transaction</a>
+ * @see <a href="https://www.baeldung.com/spring-data-mongodb-transactions">Spring Data MongoDB Transactions - Baeldung</a>
  */
 @Configuration
 public class TransactionConfig {

@@ -25,9 +25,6 @@ import java.util.Arrays;
  * @author xiongbw
  * @date 2022/8/28
  * @see <a href="https://www.mongodb.com/developer/products/mongodb/bson-data-types-decimal128/">BSON Data Types - Decimal128</a>
- * @see <a href="https://www.mongodb.com/docs/v4.4/core/transactions/">Transactions — MongoDB Manual</a>
- * @see <a href="https://docs.spring.io/spring-data/mongodb/docs/current/reference/html/#mongo.transactions/">MongoDB Transaction</a>
- * @see <a href="https://www.baeldung.com/spring-data-mongodb-transactions">Spring Data MongoDB Transactions - Baeldung</a>
  */
 @Configuration
 public class MongoConfig {
