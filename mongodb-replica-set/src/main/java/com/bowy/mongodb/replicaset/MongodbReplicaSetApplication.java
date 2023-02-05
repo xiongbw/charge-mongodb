@@ -1,0 +1,13 @@
+package com.bowy.mongodb.replicaset;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MongodbReplicaSetApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MongodbReplicaSetApplication.class, args);
+    }
+
+}
