@@ -24,6 +24,7 @@
 
     <modules>
         <module>mongodb-single</module>
+        <module>mongodb-replica-set</module>
     </modules>
 
     <dependencies>

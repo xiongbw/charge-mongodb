@@ -1,0 +1,17 @@
+server:
+  port: 9998
+
+spring:
+  data:
+    mongodb:
+      # 配置参考文档：https://www.mongodb.com/docs/v4.4/reference/connection-string/
+      uri: mongodb://localhost:37017,localhost:37018,localhost:37019/db_charge?replicaSet=rs0
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+logging:
+  level:
+    # 输出查询语句
+    org.springframework.data.mongodb.core: debug
