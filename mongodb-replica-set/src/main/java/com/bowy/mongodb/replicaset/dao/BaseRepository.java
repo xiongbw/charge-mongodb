@@ -7,6 +7,7 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -21,6 +22,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.validation.constraints.Min;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 /**
@@ -376,16 +378,23 @@ public abstract class BaseRepository<T extends BaseDocument> {
      */
     protected Query buildQuery(T document) {
         Query query = new Query();
-        Field[] fields = document.getClass().getDeclaredFields();
-        for (Field field : fields) {
-            field.setAccessible(true);
+        List<Field> fieldList = FieldUtils.getAllFieldsList(document.getClass());
+        for (Field field : fieldList) {
+            String fieldName = field.getName();
+            String className = document.getClass().getSimpleName();
+            if (Modifier.isStatic(field.getModifiers())) {
+                log.info("Ignore static field '{}' in {}.class", fieldName, className);
+                continue;
+            }
+
             try {
-                Object value = field.get(document);
+                Object value = FieldUtils.readField(field, document, true);
                 if (value != null) {
-                    query.addCriteria(Criteria.where(field.getName()).is(value));
+                    String key = BaseDocument.Fields.id.equals(fieldName) ? BaseDocument.ID_NAME : fieldName;
+                    query.addCriteria(Criteria.where(key).is(value));
                 }
             } catch (IllegalAccessException e) {
-                log.warn("Failed access the field {} in class {}: {}", field.getName(), this.getDocumentClass(), e.getMessage());
+                log.warn("Failed access the field '{}' in {}.class: {}", fieldName, className, e.getMessage());
             }
         }
         return query;
