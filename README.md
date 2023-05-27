@@ -1,84 +1,26 @@
-# A project for learning MongoDB
+# charge-mongodb
 
-## 网站
-> `MongoDB` 4.4版本之后，`MongoDB` 数据库工具现在与 `MongoDB` 服务，分开发布，需要单独安装
-* [官方网站](https://www.mongodb.com)
-* [服务下载地址](https://www.mongodb.com/try/download/community)
-* [数据库工具下载地址](https://www.mongodb.com/try/download/database-tools)
+<p>
+  <a href="https://mmbiz.qpic.cn/mmbiz_png/wRTybk8SK4bX34XnzbtVpQkAcia8guEPjFVicsepNxtKU4jgh4R0JTq0XZn5iavCsIsj0MfcUpPx0VjEOoWueX5tA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/%E5%85%AC%E4%BC%97%E5%8F%B7-CodeArtist9-blue.svg" alt="公众号"></a>
+    <a href="https://github.com/xiongbw/charge-mongodb/blob/master/LICENSE"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/%E8%AE%B8%E5%8F%AF%E8%AF%81-Apache-red.svg" alt="许可证"></a>
+    <a href="#Java"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/Java-1.8.0_202-orange.svg" alt="Java"></a>
+    <a href="#MongoDB"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/MongoDB-4.4.16-brightgreen.svg" alt="MongoDB"></a>
+</p>
 
-## 安装
-1. [官方网站](https://www.mongodb.com/try/download/community)
-2. 解压压缩包
-```shell
-tar -xvf mongodb-macos-x86_64-4.4.16.tgz
-```
+## 项目介绍
 
-## 启动
-> - port 端口（默认：27017）
-> - dbpath 设置数据志存放目录
-> - logpath 设置日志存放目录
-> - fork 以守护进程的方式在后台运行
+> `charge` 在这指的是**充电**的意思。
 
-### 方式一
-直接通过命令启动
-```shell
-./bin/mongod --logpath=/Users/bowy/workspace/mongodb/log/mongo.log --dbpath=/Users/bowy/workspace/mongodb/data --fork
-```
+该项目希望能给你提供一系列上手  `MongoDB` 的学习指南，少走弯路，少踩坑。
 
-### 方式二（推荐）
-通过配置文件方式启动
-1. 创建配置文件 `vim mongod.conf`
-```
-# 设置绑定 IP
-bind_ip = 127.0.0.1
+## 文章推荐
 
-# --dbpath 设置数据志存放目录
-dbpath = /Users/bowy/workspace/mongodb/data
+1. [【基础篇 - 介绍】01 - 推开新世界的大门](https://mp.weixin.qq.com/s/gcyJunjg5Tx6AV73bfWPKg)
+2. [【基础篇 - 安装】02 - Windows、macOS和 Linux图文安装](https://mp.weixin.qq.com/s/yaPbuUqMF_4oFkaoCqilJQ)
+3. [【基础篇 - 基础操作】03 - 你最关心的 CRUD 在这里](https://mp.weixin.qq.com/s/Wkfb04mUlLMSsoGlH9PM1A)
+4. [【进阶篇 - 聚合查询】04 - 使用管道实现复杂分析](https://mp.weixin.qq.com/s/2ySN-M2J84ztLnw2FzRyZQ)
+5. [【进阶篇 - JSON 文档模型设计】05 - Mongo 套路深，我要回农村](https://mp.weixin.qq.com/s/ILMM87QLvj13maCew7kTJg)
 
-# --logpath 设置日志存放目录
-logpath = /Users/bowy/workspace/mongodb/log/mongo.log
+## 特别鸣谢
 
-# --fork 后台运行
-fork = true
-```
-2. 启动
-```shell
-./bin/mongod --config mongod.conf
-```
-
-## 进入 `MongoDB`
-执行命令 `mongo`，默认进入本地 27017 端口的 `MongoDB` 实例。
-```shell
-./bin/mongo
-```
-
-## 数据准备
-解压 `dump.7z`，使用数据库工具的 `mongorestore` 备份工具，导入 10,0000 条订单 `db_charge.order` 数据。
-```shell
-mongorestore -h 127.0.0.1:27017 dump
-```
-
-## 停止服务
-使用数据库命令关闭
-1. 进入 `MongoDB` 服务
-```shell
-mongo
-```
-2. 进入 `admin` 库
-```shell
-use admin
-```
-3. 停止服务
-```shell
-db.shutdownServer();
-```
-
-## 概念介绍
-### 复制集
-复制集由一组 `MongoDB` 实例组成，包含一个 Primary 节点和多个 Secondary 节点
-
-`MongoDB Driver`（客户端）的所有数据都写入 Primary，Secondary 从 Primary 同步写入的数据，以保持复制集内所有成员存储相同的数据集，提供数据的高可用。
-![img.png](https://www.runoob.com/wp-content/uploads/2013/12/replication.png)
-
-### 分片集群
-数据节点基本上以复制集为单位，每一个分片必须是一个复制集，因为不允许在单个分片里面有单点故障，要保证复制集里面的每一个节点有一个互为高可用的角色存在；分片和分片之间的数据是不重复的。
+[MongoDB 高手课](https://time.geekbang.org/course/intro/100040001?tab=catalog)
