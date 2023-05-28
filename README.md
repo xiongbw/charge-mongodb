@@ -15,11 +15,19 @@
 
 ## 文章推荐
 
-1. [【基础篇 - 介绍】01 - 推开新世界的大门](https://mp.weixin.qq.com/s/gcyJunjg5Tx6AV73bfWPKg)
-2. [【基础篇 - 安装】02 - Windows、macOS和 Linux图文安装](https://mp.weixin.qq.com/s/yaPbuUqMF_4oFkaoCqilJQ)
-3. [【基础篇 - 基础操作】03 - 你最关心的 CRUD 在这里](https://mp.weixin.qq.com/s/Wkfb04mUlLMSsoGlH9PM1A)
-4. [【进阶篇 - 聚合查询】04 - 使用管道实现复杂分析](https://mp.weixin.qq.com/s/2ySN-M2J84ztLnw2FzRyZQ)
-5. [【进阶篇 - JSON 文档模型设计】05 - Mongo 套路深，我要回农村](https://mp.weixin.qq.com/s/ILMM87QLvj13maCew7kTJg)
+### 基础篇
+
+1. [介绍：推开新世界的大门](https://mp.weixin.qq.com/s/gcyJunjg5Tx6AV73bfWPKg)
+2. [安装：Windows、macOS 和 Linux 图文安装](https://mp.weixin.qq.com/s/yaPbuUqMF_4oFkaoCqilJQ)
+3. [基础操作：你最关心的 CRUD 在这里](https://mp.weixin.qq.com/s/Wkfb04mUlLMSsoGlH9PM1A)
+
+### 进阶篇
+
+4. [聚合查询：使用管道实现复杂分析](https://mp.weixin.qq.com/s/2ySN-M2J84ztLnw2FzRyZQ)
+5. [JSON 文档模型设计：Mongo 套路深，我要回农村](https://mp.weixin.qq.com/s/ILMM87QLvj13maCew7kTJg)
+
+## 公众号
+![CodeArtist9](https://code-artist.oss-cn-shenzhen.aliyuncs.com/qrcode/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E6%A0%87%E5%87%86%E8%89%B2%E7%89%88.png)
 
 ## 特别鸣谢
 

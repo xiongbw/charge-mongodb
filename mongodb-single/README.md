@@ -16,7 +16,7 @@
 
 ### 搭建单实例
 
-安装过程可见 [【基础篇 - 安装】02 - Windows、macOS和 Linux图文安装](https://mp.weixin.qq.com/s/yaPbuUqMF_4oFkaoCqilJQ)
+安装过程可见 [Windows、macOS 和 Linux 图文安装](https://mp.weixin.qq.com/s/yaPbuUqMF_4oFkaoCqilJQ)
 
 接下来就是将它变成一个只有一个节点的复制集。
 
