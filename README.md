@@ -26,8 +26,12 @@
 4. [聚合查询：使用管道实现复杂分析](https://mp.weixin.qq.com/s/2ySN-M2J84ztLnw2FzRyZQ)
 5. [JSON 文档模型设计：Mongo 套路深，我要回农村](https://mp.weixin.qq.com/s/ILMM87QLvj13maCew7kTJg)
 
+### 高级篇
+
+6. [复制集：分布式数据存储和高可用性](https://mp.weixin.qq.com/s/dbSw4p3SItN47M0HCHD8jg)
+
 ## 公众号
-![CodeArtist9](https://code-artist.oss-cn-shenzhen.aliyuncs.com/qrcode/%E6%89%AB%E7%A0%81_%E6%90%9C%E7%B4%A2%E8%81%94%E5%90%88%E4%BC%A0%E6%92%AD%E6%A0%B7%E5%BC%8F-%E6%A0%87%E5%87%86%E8%89%B2%E7%89%88.png)
+![CodeArtist9](https://code-artist.oss-cn-shenzhen.aliyuncs.com/qrcode/qrcode_compress.png)
 
 ## 特别鸣谢
 
