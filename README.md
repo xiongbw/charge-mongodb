@@ -29,6 +29,7 @@
 ### 高级篇
 
 6. [复制集：分布式数据存储和高可用性](https://mp.weixin.qq.com/s/dbSw4p3SItN47M0HCHD8jg)
+7. [事务机制：基于 ACID 的操作和并发控制](https://mp.weixin.qq.com/s/kYnPfA1xdNxUI0iKhjlGfw)
 
 ## 公众号
 ![CodeArtist9](https://code-artist.oss-cn-shenzhen.aliyuncs.com/qrcode/qrcode_compress.png)
