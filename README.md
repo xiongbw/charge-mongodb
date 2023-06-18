@@ -36,7 +36,7 @@
 8. [我的开源处女座：Spring Boot 结合 MongoDB 的使用](https://mp.weixin.qq.com/s/xx7pUs0j7HNmwUilRV9gJw)
 
 ## 公众号
-![CodeArtist9](https://code-artist.oss-cn-shenzhen.aliyuncs.com/qrcode/qrcode_compress.png)
+![CodeArtist9](https://code-artist.oss-cn-shenzhen.aliyuncs.com/qrcode/qrcode_for_gh.jpg)
 
 ## 特别鸣谢
 
