@@ -24,7 +24,7 @@
     </properties>
 
     <modules>
-        <module>mongodb-single</module>
+        <module>mongodb-standalone</module>
         <module>mongodb-replica-set</module>
     </modules>
 
