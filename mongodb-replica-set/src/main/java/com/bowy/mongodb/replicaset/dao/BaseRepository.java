@@ -391,9 +391,16 @@ public abstract class BaseRepository<T extends BaseDocument> {
      * @param outputType 输出类型实体类
      * @param <O>        输出类型泛型
      * @return 聚合操作结果
+     * @implSpec 尽量指定 {@link #collectionName 集合名称} 而不是 {@link #getDocumentClass() 文档实体类} 进行查询。
+     * <ol>
+     *     <li>简单直接</li>
+     *     <li>当指定 {@link #getDocumentClass() 文档实体类}，
+     *     且实际 {@link org.springframework.data.mongodb.core.mapping.Field#name() 文档字段名称}
+     *     与 {@link #getDocumentClass() 文档实体类} 对象字段名称不一致时，容易导致字段匹配失效等问题。</li>
+     * </ol>
      */
     public <O> AggregationResults<O> aggregate(List<AggregationOperation> operations, Class<O> outputType) {
-        return mongoTemplate.aggregate(Aggregation.newAggregation(operations), this.getDocumentClass(), outputType);
+        return mongoTemplate.aggregate(Aggregation.newAggregation(operations), this.collectionName, outputType);
     }
 
     /**
