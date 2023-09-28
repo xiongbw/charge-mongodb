@@ -7,11 +7,13 @@ import com.mongodb.client.result.DeleteResult;
 import com.mongodb.client.result.UpdateResult;
 import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -41,6 +43,8 @@ public abstract class BaseRepository<T extends BaseDocument> {
      */
     protected abstract Class<T> getDocumentClass();
 
+    protected final String collectionName;
+
     @Autowired
     protected MongoTemplate mongoTemplate;
 
@@ -59,6 +63,10 @@ public abstract class BaseRepository<T extends BaseDocument> {
         BASE_AND_QUERY_MAP.put(BaseDocument.Fields.isDeleted, Boolean.FALSE);
 
         DEFAULT_SORT_FIELDS = Collections.singletonList(Sort.Order.desc(BaseDocument.ID_NAME));
+    }
+
+    protected BaseRepository() {
+        this.collectionName = getCollectionName();
     }
 
     /**
@@ -640,5 +648,27 @@ public abstract class BaseRepository<T extends BaseDocument> {
         return criteria;
     }
     // -------------------------------------------------------------------------------------------- Protected method end
+
+    // -------------------------------------------------------------------------------------------- Private method start
+
+    /**
+     * 获取集合名称
+     *
+     * @return 集合名称
+     */
+    private String getCollectionName() {
+        Class<T> documentClass = this.getDocumentClass();
+        Document document = documentClass.getAnnotation(Document.class);
+        if (StringUtils.isNotBlank(document.value())) {
+            return document.value();
+        }
+
+        if (StringUtils.isNotBlank(document.collection())) {
+            return document.collection();
+        }
+
+        throw new RuntimeException("Unknown collection name with Class: " + documentClass.getName());
+    }
+    // ---------------------------------------------------------------------------------------------- Private method end
 
 }
