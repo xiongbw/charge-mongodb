@@ -1,6 +1,7 @@
 package com.bowy.mongodb.replicaset.model.query;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.util.CollectionUtils;
 
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
  * @apiNote 字段类型为 Map，Key 为集合的字段名称，Value 为该字段在查询时的条件。
  */
 @Data
+@Accessors(chain = true)
 public class FieldsQuery implements Serializable {
 
     private static final long serialVersionUID = 3168594075088563280L;
@@ -67,11 +69,67 @@ public class FieldsQuery implements Serializable {
      */
     private Map<String, List<Object>> ninMap;
 
-    public FieldsQuery() {
+    /**
+     * @return {@link FieldsQuery} by setting {@link #isMap}
+     */
+    public static FieldsQuery withIsMap(Map<String, Object> isMap) {
+        return new FieldsQuery().setIsMap(isMap);
     }
 
-    public FieldsQuery(Map<String, Object> isMap) {
-        this.isMap = isMap;
+    /**
+     * @return {@link FieldsQuery} by setting {@link #neMap}
+     */
+    public static FieldsQuery withNeMap(Map<String, Object> neMap) {
+        return new FieldsQuery().setNeMap(neMap);
+    }
+
+    /**
+     * @return {@link FieldsQuery} by setting {@link #gtMap}
+     */
+    public static FieldsQuery withGtMap(Map<String, Object> gtMap) {
+        return new FieldsQuery().setGtMap(gtMap);
+    }
+
+    /**
+     * @return {@link FieldsQuery} by setting {@link #gteMap}
+     */
+    public static FieldsQuery withGteMap(Map<String, Object> gteMap) {
+        return new FieldsQuery().setGteMap(gteMap);
+    }
+
+    /**
+     * @return {@link FieldsQuery} by setting {@link #ltMap}
+     */
+    public static FieldsQuery withLtMap(Map<String, Object> ltMap) {
+        return new FieldsQuery().setLtMap(ltMap);
+    }
+
+    /**
+     * @return {@link FieldsQuery} by setting {@link #lteMap}
+     */
+    public static FieldsQuery withLteMap(Map<String, Object> lteMap) {
+        return new FieldsQuery().setLteMap(lteMap);
+    }
+
+    /**
+     * @return {@link FieldsQuery} by setting {@link #regexMap}
+     */
+    public static FieldsQuery withRegexMap(Map<String, Pattern> regexMap) {
+        return new FieldsQuery().setRegexMap(regexMap);
+    }
+
+    /**
+     * @return {@link FieldsQuery} by setting {@link #inMap}
+     */
+    public static FieldsQuery withInMap(Map<String, List<Object>> inMap) {
+        return new FieldsQuery().setInMap(inMap);
+    }
+
+    /**
+     * @return {@link FieldsQuery} by setting {@link #ninMap}
+     */
+    public static FieldsQuery withNinMap(Map<String, List<Object>> ninMap) {
+        return new FieldsQuery().setNinMap(ninMap);
     }
 
     /**

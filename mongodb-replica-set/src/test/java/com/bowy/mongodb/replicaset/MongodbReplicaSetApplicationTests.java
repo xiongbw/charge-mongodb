@@ -153,8 +153,7 @@ class MongodbReplicaSetApplicationTests {
         Map<String, Object> isMap = new HashMap<>();
         isMap.put(Order.Fields.userId, 123);
 
-        FieldsQuery fieldsQuery = new FieldsQuery();
-        fieldsQuery.setIsMap(isMap);
+        FieldsQuery fieldsQuery = FieldsQuery.withIsMap(isMap);
 
         Map<QueryOperatorEnum, FieldsQuery> queryMap = new HashMap<>();
         queryMap.put(QueryOperatorEnum.AND, fieldsQuery);
@@ -171,8 +170,7 @@ class MongodbReplicaSetApplicationTests {
         Map<String, Object> isMap = new HashMap<>();
         isMap.put(Order.Fields.userId, 123);
 
-        FieldsQuery fieldsQuery = new FieldsQuery();
-        fieldsQuery.setIsMap(isMap);
+        FieldsQuery fieldsQuery = FieldsQuery.withIsMap(isMap);
 
         Map<QueryOperatorEnum, FieldsQuery> queryMap = new HashMap<>();
         queryMap.put(QueryOperatorEnum.AND, fieldsQuery);
@@ -243,9 +241,9 @@ class MongodbReplicaSetApplicationTests {
         Map<String, Object> gtMap = new HashMap<>();
         gtMap.put(Order.Fields.total, BigDecimal.TEN);
 
-        FieldsQuery fieldsQuery = new FieldsQuery();
-        fieldsQuery.setIsMap(isMap);
-        fieldsQuery.setGtMap(gtMap);
+        FieldsQuery fieldsQuery = FieldsQuery
+                .withIsMap(isMap)
+                .setGtMap(gtMap);
 
         Map<QueryOperatorEnum, FieldsQuery> queryMap = new HashMap<>();
         queryMap.put(QueryOperatorEnum.AND, fieldsQuery);
@@ -262,8 +260,7 @@ class MongodbReplicaSetApplicationTests {
         Map<String, Object> isMap = new HashMap<>();
         isMap.put(Order.Fields.country, "China");
 
-        FieldsQuery fieldsQuery = new FieldsQuery();
-        fieldsQuery.setIsMap(isMap);
+        FieldsQuery fieldsQuery = FieldsQuery.withIsMap(isMap);
 
         Map<QueryOperatorEnum, FieldsQuery> queryMap = new HashMap<>();
         queryMap.put(QueryOperatorEnum.AND, fieldsQuery);

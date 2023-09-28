@@ -248,7 +248,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
         Assert.notNull(id, "Id must not be null");
 
         Map<String, Object> isMap = Collections.singletonMap(BaseDocument.ID_NAME, id);
-        FieldsQuery fieldsQuery = new FieldsQuery(isMap);
+        FieldsQuery fieldsQuery = FieldsQuery.withIsMap(isMap);
         Map<QueryOperatorEnum, FieldsQuery> queryMap = Collections.singletonMap(QueryOperatorEnum.AND, fieldsQuery);
 
         return updateOne(queryMap, updateMap);
@@ -435,7 +435,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
      */
     public long deleteById(String id) {
         Map<String, Object> isMap = Collections.singletonMap(BaseDocument.ID_NAME, id);
-        FieldsQuery fieldsQuery = new FieldsQuery(isMap);
+        FieldsQuery fieldsQuery = FieldsQuery.withIsMap(isMap);
         Map<QueryOperatorEnum, FieldsQuery> queryMap = Collections.singletonMap(QueryOperatorEnum.AND, fieldsQuery);
         return delete(queryMap);
     }
@@ -636,7 +636,8 @@ public abstract class BaseRepository<T extends BaseDocument> {
     protected Criteria buildCriteria(Map<QueryOperatorEnum, FieldsQuery> queryMap) {
         Criteria criteria = new Criteria();
         if (CollectionUtils.isEmpty(queryMap)) {
-            queryMap = Collections.singletonMap(QueryOperatorEnum.AND, new FieldsQuery(BASE_AND_QUERY_MAP));
+            FieldsQuery fieldsQuery = FieldsQuery.withIsMap(BASE_AND_QUERY_MAP);
+            queryMap = Collections.singletonMap(QueryOperatorEnum.AND, fieldsQuery);
         }
 
         queryMap.forEach((operatorEnum, fieldsQuery) -> {

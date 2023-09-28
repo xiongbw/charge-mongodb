@@ -59,7 +59,7 @@ public class OrderRepository extends BaseRepository<Order> {
         Map<String, Object> isMap = new HashMap<>();
         isMap.put(Order.Fields.userId, userId);
 
-        FieldsQuery fieldsQuery = new FieldsQuery(isMap);
+        FieldsQuery fieldsQuery = FieldsQuery.withIsMap(isMap);
 
         Map<QueryOperatorEnum, FieldsQuery> queryMap = new HashMap<>();
         queryMap.put(QueryOperatorEnum.AND, fieldsQuery);
@@ -115,7 +115,7 @@ public class OrderRepository extends BaseRepository<Order> {
         Map<String, Object> isMap = new HashMap<>();
         isMap.put(BaseDocument.ID_NAME, id);
 
-        FieldsQuery fieldsQuery = new FieldsQuery(isMap);
+        FieldsQuery fieldsQuery = FieldsQuery.withIsMap(isMap);
 
         Map<QueryOperatorEnum, FieldsQuery> queryMap = new HashMap<>();
         queryMap.put(QueryOperatorEnum.AND, fieldsQuery);
