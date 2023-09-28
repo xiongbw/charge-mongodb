@@ -413,6 +413,19 @@ public abstract class BaseRepository<T extends BaseDocument> {
     }
 
     /**
+     * 通过 ID 删除文档
+     *
+     * @param id {@link BaseDocument#getId()}
+     * @return 成功删除的条数
+     */
+    public long deleteById(String id) {
+        Map<String, Object> isMap = Collections.singletonMap(BaseDocument.ID_NAME, id);
+        FieldsQuery fieldsQuery = new FieldsQuery(isMap);
+        Map<QueryOperatorEnum, FieldsQuery> queryMap = Collections.singletonMap(QueryOperatorEnum.AND, fieldsQuery);
+        return delete(queryMap);
+    }
+
+    /**
      * 删除文档
      *
      * @param queryMap 查询条件集合
