@@ -95,16 +95,53 @@ public abstract class BaseRepository<T extends BaseDocument> {
     /**
      * 查询文档列表
      *
+     * @param queryMap 查询条件集合
+     * @return 文档列表
+     */
+    public List<T> findList(Map<QueryOperatorEnum, FieldsQuery> queryMap) {
+        return findList(queryMap, null);
+    }
+
+    /**
+     * 查询文档列表
+     *
+     * @param queryMap   查询条件集合
+     * @param sortFields 排序字段
+     * @return 文档列表
+     */
+    private List<T> findList(Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields) {
+        return findList(queryMap, sortFields, null, null);
+    }
+
+    /**
+     * 查询文档列表
+     *
+     * @param queryMap   查询条件集合
+     * @param sortFields 排序字段
+     * @param skip       跳过条数
+     * @param limit      限制条数
+     * @return 文档列表
+     */
+    public List<T> findList(Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields,
+                            Long skip, Integer limit) {
+        return findList(queryMap, sortFields, skip, limit, null, null);
+    }
+
+    /**
+     * 查询文档列表
+     *
      * @param queryMap      查询条件集合
      * @param sortFields    排序字段
+     * @param skip          跳过条数
+     * @param limit         限制条数
      * @param includeFields 包含字段
      * @param excludeFields 排除字段
      * @return 文档列表
      * @apiNote 对于 MongoDB 4.4 以下（不包含）的版本，可使用 {@link Query} 进行 {@code $project} 操作。
      */
     public List<T> findList(Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields,
-                            List<String> includeFields, List<String> excludeFields) {
-        Query query = buildQuery(queryMap, sortFields, includeFields, excludeFields);
+                            Long skip, Integer limit, List<String> includeFields, List<String> excludeFields) {
+        Query query = buildQuery(queryMap, sortFields, skip, limit, includeFields, excludeFields);
         return mongoTemplate.find(query, this.getDocumentClass());
     }
 
@@ -275,7 +312,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
             return Page.empty(pageable);
         }
 
-        Query query = buildQuery(queryMap, sortFields, includeFields, excludeFields);
+        Query query = buildQuery(queryMap, sortFields, null, null, includeFields, excludeFields);
         query.with(pageable);
 
         List<T> list = mongoTemplate.find(query, this.getDocumentClass());
@@ -418,7 +455,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
      * @return 查询条件
      */
     protected Query buildQuery(Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields) {
-        return buildQuery(queryMap, sortFields, null, null);
+        return buildQuery(queryMap, sortFields, null, null, null, null);
     }
 
     /**
@@ -426,13 +463,15 @@ public abstract class BaseRepository<T extends BaseDocument> {
      *
      * @param queryMap      查询条件集合
      * @param sortFields    排序字段
+     * @param skip          跳过条数
+     * @param limit         限制条数
      * @param includeFields 包含字段
      * @param excludeFields 排除字段
      * @return 查询条件
      * @implSpec 对于 MongoDB 4.4 及以上（包含）的版本，{@link Query} 不再支持 project 操作，需要通过聚合操作来实现 project 字段投影。
      */
     protected Query buildQuery(Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields,
-                               List<String> includeFields, List<String> excludeFields) {
+                               Long skip, Integer limit, List<String> includeFields, List<String> excludeFields) {
         Criteria criteria = buildCriteria(queryMap);
         Query query = new Query(criteria);
 
@@ -442,6 +481,14 @@ public abstract class BaseRepository<T extends BaseDocument> {
 
         if (!CollectionUtils.isEmpty(excludeFields)) {
             excludeFields.forEach(field -> query.fields().exclude(field));
+        }
+
+        if (skip != null && skip >= 0) {
+            query.skip(skip);
+        }
+
+        if (limit != null && limit >= 0) {
+            query.limit(limit);
         }
 
         sortFields = CollectionUtils.isEmpty(sortFields) ? DEFAULT_SORT_FIELDS : sortFields;
