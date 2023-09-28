@@ -254,9 +254,19 @@ public abstract class BaseRepository<T extends BaseDocument> {
      * @return 成功更新的条数
      */
     public long updateOne(Map<QueryOperatorEnum, FieldsQuery> queryMap, @NonNull Map<String, Object> updateMap) {
-        Query query = buildQuery(queryMap);
         Update update = buildUpdate(updateMap);
+        return updateOne(queryMap, update);
+    }
 
+    /**
+     * 更新首条
+     *
+     * @param queryMap 查询条件集合
+     * @param update   更新操作
+     * @return 成功更新的条数
+     */
+    public long updateOne(Map<QueryOperatorEnum, FieldsQuery> queryMap, Update update) {
+        Query query = buildQuery(queryMap);
         UpdateResult updateResult = mongoTemplate.updateFirst(query, update, this.getDocumentClass());
         return updateResult.getModifiedCount();
     }
@@ -266,12 +276,22 @@ public abstract class BaseRepository<T extends BaseDocument> {
      *
      * @param queryMap  查询条件集合
      * @param updateMap 待更新字段集合
-     * @return 更新结果
+     * @return 成功更新的条数
      */
     public long updateMany(Map<QueryOperatorEnum, FieldsQuery> queryMap, @NonNull Map<String, Object> updateMap) {
-        Query query = buildQuery(queryMap);
         Update update = buildUpdate(updateMap);
+        return updateMany(queryMap, update);
+    }
 
+    /**
+     * 批量更新
+     *
+     * @param queryMap 查询条件集合
+     * @param update   更新操作
+     * @return 成功更新的条数
+     */
+    public long updateMany(Map<QueryOperatorEnum, FieldsQuery> queryMap, Update update) {
+        Query query = buildQuery(queryMap);
         UpdateResult updateResult = mongoTemplate.updateMulti(query, update, this.getDocumentClass());
         return updateResult.getModifiedCount();
     }
