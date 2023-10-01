@@ -117,7 +117,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
      * @param sortFields 排序字段
      * @return 文档列表
      */
-    private List<T> findList(Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields) {
+    public List<T> findList(Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields) {
         return findList(queryMap, sortFields, null, null);
     }
 
