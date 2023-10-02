@@ -43,6 +43,9 @@ public abstract class BaseRepository<T extends BaseDocument> {
      */
     protected abstract Class<T> getDocumentClass();
 
+    /**
+     * 集合名称
+     */
     protected final String collectionName;
 
     @Autowired
@@ -675,7 +678,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
             return document.collection();
         }
 
-        throw new RuntimeException("Unknown collection name with Class: " + documentClass.getName());
+        throw new RuntimeException("Get unknown collection name by Class: " + documentClass.getName());
     }
     // ---------------------------------------------------------------------------------------------- Private method end
 
