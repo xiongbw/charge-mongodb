@@ -9,6 +9,7 @@ import javafx.util.Pair;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -203,8 +204,15 @@ public abstract class BaseRepository<T extends BaseDocument> {
     public T findById(@NonNull String id) {
         Assert.notNull(id, "Id must not be null");
 
-        return mongoTemplate.findById(id, this.getDocumentClass());
-//        return mongoTemplate.findById(new ObjectId(id), this.getDocumentClass());
+        ObjectId objectId;
+        try {
+            objectId = new ObjectId(id);
+        } catch (IllegalArgumentException e) {
+            log.warn("Failed parse String [{}] to ObjectId: {}", id, e.getMessage(), e);
+            return null;
+        }
+
+        return mongoTemplate.findById(objectId, this.getDocumentClass());
     }
 
     /**
