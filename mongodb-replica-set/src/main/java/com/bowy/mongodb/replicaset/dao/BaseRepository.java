@@ -678,6 +678,10 @@ public abstract class BaseRepository<T extends BaseDocument> {
     private String getCollectionName() {
         Class<T> documentClass = this.getDocumentClass();
         Document document = documentClass.getAnnotation(Document.class);
+        if (document == null) {
+            throw new IllegalArgumentException("Failed to get @Document annotation in Class: " + documentClass.getName());
+        }
+
         if (StringUtils.isNotBlank(document.value())) {
             return document.value();
         }
@@ -686,7 +690,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
             return document.collection();
         }
 
-        throw new RuntimeException("Get unknown collection name by Class: " + documentClass.getName());
+        throw new IllegalArgumentException("Failed to get collection name by @Document annotation in Class: " + documentClass.getName());
     }
     // ---------------------------------------------------------------------------------------------- Private method end
 
