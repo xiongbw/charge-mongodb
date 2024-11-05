@@ -205,6 +205,19 @@ class MongodbReplicaSetApplicationTests {
     }
 
     /**
+     * Example of using {@link BaseRepository#updateByIdSelective(BaseDocument)}
+     */
+    @Test
+    void updateByIdSelectiveTest() {
+        Order order = new Order();
+        order.setId("64571ec3bda5b66f411651c5");
+        order.setStatus(OrderStatusEnum.COMPLETED.getCode());
+        order.setCreateTime(new Date());
+        long updated = orderRepository.updateByIdSelective(order);
+        System.out.println("updated = " + updated);
+    }
+
+    /**
      * Example of using {@link BaseRepository#updateMany(Map, Map)}
      * <br/>
      * <code>
