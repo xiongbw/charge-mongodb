@@ -718,8 +718,9 @@ public abstract class BaseRepository<T extends BaseDocument> {
             }
 
             if (QueryOperatorEnum.AND.equals(operatorEnum)) {
-                Map<String, Object> isMap = fieldsQuery.getIsMap();
+                Map<String, Object> isMap = new HashMap<>(fieldsQuery.getIsMap());
                 BASE_AND_QUERY_MAP.forEach(isMap::putIfAbsent);
+                fieldsQuery.setIsMap(isMap);
             }
 
             operatorEnum.addCriteria(criteria, fieldsQuery);
