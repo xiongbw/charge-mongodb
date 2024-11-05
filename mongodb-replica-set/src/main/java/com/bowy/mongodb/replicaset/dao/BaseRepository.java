@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.*;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.aggregation.*;
@@ -61,6 +62,16 @@ public abstract class BaseRepository<T extends BaseDocument> {
      * 默认排序字段
      */
     protected static final List<Sort.Order> DEFAULT_SORT_FIELDS;
+
+    /**
+     * 字段列表
+     */
+    private final List<Field> fieldList = FieldUtils.getAllFieldsList(this.getDocumentClass());
+
+    /**
+     * 字段名称映射
+     */
+    private final Map<String, String> fieldsNameMap = getFieldsNameMap();
 
     static {
         BASE_AND_QUERY_MAP = new HashMap<>(2);
@@ -467,6 +478,16 @@ public abstract class BaseRepository<T extends BaseDocument> {
     // ------------------------------------------------------------------------------------------ Protected method start
 
     /**
+     * 获取字段名称
+     *
+     * @param classFieldName 类字段名称
+     * @return MongoDB 字段名称
+     */
+    protected final String getFieldName(String classFieldName) {
+        return fieldsNameMap.get(classFieldName);
+    }
+
+    /**
      * 构建查询条件
      *
      * @param document 条件查询文档
@@ -474,7 +495,6 @@ public abstract class BaseRepository<T extends BaseDocument> {
      */
     protected Query buildQuery(T document) {
         Query query = new Query();
-        List<Field> fieldList = FieldUtils.getAllFieldsList(document.getClass());
         for (Field field : fieldList) {
             String fieldName = field.getName();
             String className = document.getClass().getSimpleName();
@@ -692,6 +712,45 @@ public abstract class BaseRepository<T extends BaseDocument> {
 
         throw new IllegalArgumentException("Failed to get collection name by @Document annotation in Class: " + documentClass.getName());
     }
+
+    /**
+     * 获取字段名称映射
+     *
+     * @return 字段名称映射集合
+     */
+    private Map<String, String> getFieldsNameMap() {
+        if (CollectionUtils.isEmpty(fieldList)) {
+            return Collections.emptyMap();
+        }
+
+        Map<String, String> fieldsNameMap = new HashMap<>((int) (fieldList.size() / 0.75) + 1);
+        for (Field field : fieldList) {
+            if (Modifier.isStatic(field.getModifiers())) {
+                // 忽略静态变量
+                continue;
+            }
+
+            String mongoFieldName = field.getName();
+            if (field.getAnnotation(Id.class) != null) {
+                fieldsNameMap.put(field.getName(), BaseDocument.ID_NAME);
+                continue;
+            }
+
+            org.springframework.data.mongodb.core.mapping.Field fieldAnnotation = field
+                    .getAnnotation(org.springframework.data.mongodb.core.mapping.Field.class);
+            if (fieldAnnotation != null) {
+                if (StringUtils.isNotBlank(fieldAnnotation.value())) {
+                    mongoFieldName = fieldAnnotation.value();
+                } else if (StringUtils.isNotBlank(fieldAnnotation.name())) {
+                    mongoFieldName = fieldAnnotation.name();
+                }
+            }
+
+            fieldsNameMap.put(field.getName(), mongoFieldName);
+        }
+        return Collections.unmodifiableMap(fieldsNameMap);
+    }
+
     // ---------------------------------------------------------------------------------------------- Private method end
 
 }
