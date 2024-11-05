@@ -277,6 +277,47 @@ public abstract class BaseRepository<T extends BaseDocument> {
     }
 
     /**
+     * 更新文档
+     *
+     * @param document 文档对象
+     * @return 更新结果
+     */
+    public long updateByIdSelective(T document) {
+        Assert.isTrue(document != null && StringUtils.isNotBlank(document.getId()), "Id must not be blank");
+
+        Map<String, Object> updateMap = new HashMap<>((int) (fieldsNameMap.size() / 0.75) + 1);
+        for (Field field : fieldList) {
+            if (Modifier.isStatic(field.getModifiers())) {
+                continue;
+            }
+
+            String classFieldName = field.getName();
+            String mongoFieldName = fieldsNameMap.get(classFieldName);
+            if (mongoFieldName == null || BaseDocument.ID_NAME.equals(mongoFieldName)) {
+                continue;
+            }
+
+            Object fieldValue = null;
+            try {
+                field.setAccessible(true);
+                fieldValue = field.get(document);
+            } catch (Exception e) {
+                log.warn("Failed access {} field {} value", document.getClass().getSimpleName(), classFieldName);
+            }
+
+            if (fieldValue != null) {
+                updateMap.put(mongoFieldName, fieldValue);
+            }
+        }
+
+        if (updateMap.isEmpty()) {
+            return 0L;
+        }
+
+        return this.updateById(document.getId(), updateMap);
+    }
+
+    /**
      * 更新首条
      *
      * @param queryMap  查询条件集合
