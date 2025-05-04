@@ -1,11 +1,9 @@
 # charge-mongodb
 
-<p>
-  <a href="#公众号"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/%E5%85%AC%E4%BC%97%E5%8F%B7-CodeArtist9-blue.svg" alt="公众号"></a>
-  <a href="https://github.com/xiongbw/charge-mongodb/blob/master/LICENSE"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/%E8%AE%B8%E5%8F%AF%E8%AF%81-Apache-red.svg" alt="许可证"></a>
-  <a href="#Java"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/Java-1.8.0_202-orange.svg" alt="Java"></a>
-  <a href="#MongoDB"><img src="https://code-artist.oss-cn-shenzhen.aliyuncs.com/MongoDB/charge-mongodb/MongoDB-4.4.16-brightgreen.svg" alt="MongoDB"></a>
-</p>
+![公众号](https://img.shields.io/badge/公众号-CodeArtist9-blue.svg)
+![许可证](https://img.shields.io/badge/许可证-Apache-orange.svg)
+![Java 1.8.0 202](https://img.shields.io/badge/Java-1.8.0_202-yellow.svg)
+![MongoDB 4.4.16](https://img.shields.io/badge/MongoDB-4.4.16-brightgreen.svg)
 
 ## 项目介绍
 
