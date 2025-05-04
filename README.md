@@ -1,7 +1,7 @@
 # charge-mongodb
 
 ![公众号](https://img.shields.io/badge/公众号-CodeArtist9-blue.svg)
-![许可证](https://img.shields.io/badge/许可证-Apache-orange.svg)
+![许可证](https://img.shields.io/badge/许可证-MIT-orange.svg)
 ![Java 1.8.0 202](https://img.shields.io/badge/Java-1.8.0_202-yellow.svg)
 ![MongoDB 4.4.16](https://img.shields.io/badge/MongoDB-4.4.16-brightgreen.svg)
 
