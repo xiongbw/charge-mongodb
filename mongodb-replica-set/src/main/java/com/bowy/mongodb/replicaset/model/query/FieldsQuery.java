@@ -145,7 +145,7 @@ public class FieldsQuery implements Serializable {
         }
 
         if (!CollectionUtils.isEmpty(this.neMap)) {
-            this.neMap.forEach((field, value) -> criteriaList.add(Criteria.where(field).ne(field)));
+            this.neMap.forEach((field, value) -> criteriaList.add(Criteria.where(field).ne(value)));
         }
 
         if (!CollectionUtils.isEmpty(this.gtMap)) {
