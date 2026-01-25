@@ -20,6 +20,7 @@ import org.springframework.data.mongodb.core.query.BasicQuery;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
+import org.springframework.data.util.CloseableIterator;
 import org.springframework.lang.NonNull;
 import org.springframework.util.Assert;
 import org.springframework.util.CollectionUtils;
@@ -235,6 +236,84 @@ public abstract class BaseRepository<T extends BaseDocument> {
     public List<T> findListByJson(String json) {
         Query query = new BasicQuery(json);
         return mongoTemplate.find(query, this.getDocumentClass());
+    }
+
+    /**
+     * 流式查询文档列表
+     *
+     * @param batchSize 批次大小
+     * @param queryMap  查询条件集合
+     * @return 文档列表迭代器
+     */
+    public CloseableIterator<T> stream(Integer batchSize, Map<QueryOperatorEnum, FieldsQuery> queryMap) {
+        return stream(batchSize, queryMap, null);
+    }
+
+    /**
+     * 流式查询文档列表
+     *
+     * @param batchSize  批次大小
+     * @param queryMap   查询条件集合
+     * @param sortFields 排序字段
+     * @return 文档列表迭代器
+     */
+    public CloseableIterator<T> stream(Integer batchSize, Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields) {
+        return stream(batchSize, queryMap, sortFields, null, null);
+    }
+
+    /**
+     * 流式查询文档列表
+     *
+     * @param batchSize  批次大小
+     * @param queryMap   查询条件集合
+     * @param sortFields 排序字段
+     * @param skip       跳过条数
+     * @param limit      限制条数
+     * @return 文档列表迭代器
+     */
+    public CloseableIterator<T> stream(Integer batchSize, Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields,
+                                       Long skip, Integer limit) {
+        return stream(batchSize, queryMap, sortFields, null, null, null, null);
+    }
+
+    /**
+     * 流式查询文档列表
+     *
+     * @param batchSize     批次大小
+     * @param queryMap      查询条件集合
+     * @param sortFields    排序字段
+     * @param skip          跳过条数
+     * @param limit         限制条数
+     * @param includeFields 包含字段
+     * @param excludeFields 排除字段
+     * @return 文档列表迭代器
+     * @apiNote 适用于大数据量查询，避免一次性加在所有数据到内存。<br/>
+     * 记得使用完毕后调用 {@link CloseableIterator#close()} 方法关闭迭代器，释放资源。
+     */
+    public CloseableIterator<T> stream(Integer batchSize, Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields,
+                                       Long skip, Integer limit, List<String> includeFields, List<String> excludeFields) {
+        Query query = buildQuery(queryMap, sortFields, skip, limit, includeFields, excludeFields);
+        if (batchSize != null && batchSize > 0) {
+            query.cursorBatchSize(batchSize);
+        }
+        return mongoTemplate.stream(query, this.getDocumentClass());
+    }
+
+    /**
+     * 流式查询文档列表
+     *
+     * @param batchSize 批次大小
+     * @param json      JSON 查询条件
+     * @return 文档列表迭代器
+     * @apiNote 适用于大数据量查询，避免一次性加在所有数据到内存。<br/>
+     * 记得使用完毕后调用 {@link CloseableIterator#close()} 方法关闭迭代器，释放资源。
+     */
+    public CloseableIterator<T> streamByJson(Integer batchSize, String json) {
+        Query query = new BasicQuery(json);
+        if (batchSize != null && batchSize > 0) {
+            query.cursorBatchSize(batchSize);
+        }
+        return mongoTemplate.stream(query, this.getDocumentClass());
     }
 
     /**
