@@ -273,7 +273,7 @@ public abstract class BaseRepository<T extends BaseDocument> {
      */
     public CloseableIterator<T> stream(Integer batchSize, Map<QueryOperatorEnum, FieldsQuery> queryMap, List<Sort.Order> sortFields,
                                        Long skip, Integer limit) {
-        return stream(batchSize, queryMap, sortFields, null, null, null, null);
+        return stream(batchSize, queryMap, sortFields, skip, limit, null, null);
     }
 
     /**
